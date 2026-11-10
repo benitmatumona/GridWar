@@ -2,21 +2,16 @@ public class Robot
 {
     public Guid Id {get;}
     public String Name {get;}
+    private String _name;
     public int Health {
-                          get; 
+                          get{return _health}; 
                           set{
                                  if (value < 0) 
                                      throw new ArgumentException("The vaalue must ne greater or equals to 0");
-                                 this.Health = value;
+                                 this._health = value;
                              };
                       }
-    public bool IsAlive {
-                            get;
-                            set
-                            {
-                                IsAlive = Health > 0; 
-                            };
-                        }
+    public bool IsAlive {get{return Health > 0;};}
 
     public Robot(String name)
     {
@@ -30,6 +25,6 @@ public class Robot
     {
         if (amount <= 0) 
             throw new ArgumentException("amount must be greater than 0");
-        if (Health - amount >= 0) Health -= amount;
+        Health = Math.Max(0, Health - amount};
     }
 }
