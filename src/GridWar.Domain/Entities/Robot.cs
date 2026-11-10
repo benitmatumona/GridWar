@@ -1,30 +1,42 @@
-public class Robot 
-{
-    public Guid Id {get;}
-    public String Name {get;}
-    private String _name;
-    public int Health {
-                          get{return _health}; 
-                          set{
-                                 if (value < 0) 
-                                     throw new ArgumentException("The vaalue must ne greater or equals to 0");
-                                 this._health = value;
-                             };
-                      }
-    public bool IsAlive {get{return Health > 0;};}
+namespace GridWar.Domain.Entities;
 
-    public Robot(String name)
+public class Robot
+{
+    public Guid Id { get; }
+
+    public string Name { get; }
+
+    private int _health;
+
+    public int Health
     {
-        this.Id = Guid.NewGuid();
-        this.Name = name;
-        this.Health = 100;
-        this.IsAlive = true;
+        get { return _health; }
+        private set
+        {
+            if (value < 0)
+                throw new ArgumentException("Health cannot be negative.");
+
+            _health = value;
+        }
+    }
+
+    public bool IsAlive => Health > 0;
+
+    public Robot(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Robot name cannot be empty.");
+
+        Id = Guid.NewGuid();
+        Name = name.Trim();
+        Health = 100;
     }
 
     public void TakeDamage(int amount)
     {
-        if (amount <= 0) 
-            throw new ArgumentException("amount must be greater than 0");
-        Health = Math.Max(0, Health - amount};
+        if (amount <= 0)
+            throw new ArgumentException("Damage must be greater than zero.");
+
+        Health = Math.Max(0, Health - amount);
     }
 }
