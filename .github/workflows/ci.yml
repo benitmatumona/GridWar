@@ -1,0 +1,39 @@
+name: GridWar CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Check solution exists
+        run: |
+          if [ ! -f GridWar.sln ]; then
+            echo "GridWar solution not created yet."
+            exit 0
+          fi
+
+      - name: Restore dependencies
+        if: hashFiles('GridWar.sln') != ''
+        run: dotnet restore GridWar.sln
+
+      - name: Build
+        if: hashFiles('GridWar.sln') != ''
+        run: dotnet build GridWar.sln --configuration Release --no-restore
+
+      - name: Test
+        if: hashFiles('GridWar.sln') != ''
+        run: dotnet test GridWar.sln --configuration Release --no-build
