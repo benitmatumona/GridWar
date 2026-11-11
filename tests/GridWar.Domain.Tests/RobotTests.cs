@@ -42,6 +42,17 @@ public class RobotTests
         Assert.Throws<ArgumentException>(() => robot.TakeDamage(-10));
     }
 
+    [Fact]
+    public void Constructor_WhenNameIsEmpty_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => new Robot(""));
+    }
+
+    [Fact]
+    public void Constructor_WhenNameContainsOnlyWhitespace_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => new Robot("   "));
+    }
 
 }
 
