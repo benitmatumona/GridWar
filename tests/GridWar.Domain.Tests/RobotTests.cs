@@ -17,6 +17,16 @@ public class RobotTests
         robot.TakeDamage(30);
         Assert.Equal(70, robot.Health);
     }
+
+    [Fact]
+    public void TakeDamage_WhenDamageExceedsHealth_SetsHealthToZero()
+    {
+        var robot = new Robot("test");
+        robot.TakeDamage(80);
+        robot.TakeDamage(50);
+        Assert.Equal(0, robot.Health);
+        Assert.False(robot.IsAlive);
+    }
 }
 
 
