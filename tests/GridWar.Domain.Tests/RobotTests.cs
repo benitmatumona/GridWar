@@ -60,6 +60,16 @@ public class RobotTests
         Assert.Throws<ArgumentException>(() => new Robot((string)null!));
     }
 
+    [Fact]
+    public void TakeDamage_WhenRobotIsAlreadyDead_HealthRemainsZero()
+    {
+        var robot = new Robot("test");
+        robot.TakeDamage(100);
+        robot.TakeDamage(20);
+        Assert.Equal(0, robot.Health);
+        Assert.False(robot.IsAlive);
+    }
+
 
 }
 
