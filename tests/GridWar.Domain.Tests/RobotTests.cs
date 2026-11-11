@@ -35,6 +35,14 @@ public class RobotTests
         Assert.Throws<ArgumentException>(() => robot.TakeDamage(0));
     }
 
+    [Fact]
+    public void TakeDamage_WhenAmountIsNegative_ThrowsArgumentException()
+    {
+        var robot = new Robot("test");
+        Assert.Throws<ArgumentException>(() => robot.TakeDamage(-10));
+    }
+
+
 }
 
 
