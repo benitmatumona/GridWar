@@ -54,6 +54,13 @@ public class RobotTests
         Assert.Throws<ArgumentException>(() => new Robot("   "));
     }
 
+    [Fact]
+    public void Constructor_WhenNameIsNull_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => new Robot((string)null!));
+    }
+
+
 }
 
 
