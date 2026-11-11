@@ -27,6 +27,14 @@ public class RobotTests
         Assert.Equal(0, robot.Health);
         Assert.False(robot.IsAlive);
     }
+
+    [Fact]
+    public void TakeDamage_WhenAmountIsZero_ThrowsArgumentException()
+    {
+        var robot = new Robot("test");
+        Assert.Throws<ArgumentException>(() => robot.TakeDamage(0));
+    }
+
 }
 
 
