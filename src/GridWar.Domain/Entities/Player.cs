@@ -22,6 +22,19 @@ public class Player
         Username = username.Trim();
         _robots = new List<Robot>();
     }
+    
+    public bool IsEliminated 
+    {
+        get
+        {
+            if (_robots.Count > 0)
+            {
+                return _robots.All(robot => !robot.IsAlive);
+            }
+         return false;
+        }
+    }
+
     public void AddRobot(Robot robot)
     {
         ArgumentNullException.ThrowIfNull(robot);
